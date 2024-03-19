@@ -1,7 +1,7 @@
+import 'package:firstapp/core/common/entities/user.dart';
 import 'package:firstapp/core/error/exceptions.dart';
 import 'package:firstapp/core/error/failures.dart';
 import 'package:firstapp/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:firstapp/features/auth/domain/entities/user.dart';
 import 'package:firstapp/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
