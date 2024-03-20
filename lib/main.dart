@@ -1,6 +1,8 @@
+import 'package:firstapp/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:firstapp/core/theme/theme.dart';
 import 'package:firstapp/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:firstapp/features/auth/presentation/pages/login_page.dart';
+import 'package:firstapp/features/blog/presentation/pages/blog_page.dart';
 import 'package:firstapp/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +13,9 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) => serviceLocator<AppUserCubit>(),
+        ),
         BlocProvider(
           create: (_) => serviceLocator<AuthBloc>(),
         ),
@@ -30,7 +35,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<AuthBloc>().add(AuthIsUserLoggedIn());
   }
@@ -41,7 +45,17 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'BlogReader',
       theme: AppTheme.darkThemeMode,
-      home: const LoginPage(),
+      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+        selector: (state) {
+          return state is AppUserLoggedIn;
+        },
+        builder: (context, state) {
+          if (state) {
+            return const BlogPage();
+          }
+          return const LoginPage();
+        },
+      ),
     );
   }
 }
