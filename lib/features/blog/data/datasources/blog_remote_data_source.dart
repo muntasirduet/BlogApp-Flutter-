@@ -39,8 +39,8 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
             image,
           );
       return supabaseClient.storage.from('blog_images').getPublicUrl(
-            blog.id,
-          );
+          //blog.id,
+          'https://nfncqelufletkdpyhstv.supabase.co/storage/v1/object/public/blog_images/262156893-d3c453ac-89f2-428b-b527-ebeaa8f02015.png');
     } catch (e) {
       throw ServerException(e.toString());
     }

@@ -2,14 +2,6 @@ import 'package:firstapp/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const _border = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: AppPallete.borderColor,
-      width: 3,
-    ),
-    borderRadius: BorderRadius.all(Radius.circular(10)),
-  );
-
   static const _borderFocused = OutlineInputBorder(
     borderSide: BorderSide(
       color: AppPallete.gradient2,
@@ -31,8 +23,18 @@ class AppTheme {
     ),
     inputDecorationTheme: const InputDecorationTheme(
       contentPadding: EdgeInsets.all(27),
+      border: _border,
       enabledBorder: _border,
       focusedBorder: _borderFocused,
+      errorBorder: _border,
     ),
+  );
+
+  static const _border = OutlineInputBorder(
+    borderSide: BorderSide(
+      color: AppPallete.borderColor,
+      width: 3,
+    ),
+    borderRadius: BorderRadius.all(Radius.circular(10)),
   );
 }
