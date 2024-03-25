@@ -15,7 +15,7 @@ class BlogRepositoryImpl implements BlogRepository {
 
   @override
   Future<Either<Failure, Blog>> uploadBlog({
-    required File image,
+    required File? image,
     required String title,
     required String content,
     required String posterId,
@@ -32,7 +32,7 @@ class BlogRepositoryImpl implements BlogRepository {
         updatedAt: DateTime.now(),
       );
       final imageUrl = await blogRemoteDataSource.uploadBlogImage(
-        image: image,
+        image: image!,
         blog: blogModel,
       );
       blogModel = blogModel.copyWith(
@@ -40,6 +40,19 @@ class BlogRepositoryImpl implements BlogRepository {
       );
       final uploadedBlog = await blogRemoteDataSource.uploadBlog(blogModel);
       return right(uploadedBlog);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Blog>>> getAllBlogs() async {
+    try {
+      print('ksajksajksasakjsakjsa\n');
+      final blogs = await blogRemoteDataSource.getAllBlogs();
+      print('ksajksajksasakjsakjsa\n');
+      print(blogs[0].id);
+      return right(blogs);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
